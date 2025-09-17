@@ -1,15 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion } from "@/components/ui/simple-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useProjectStore } from "@/store/useProjectStore";
 import { 
-  TrendingUp, 
   Users, 
   CheckCircle, 
   Clock,
-  AlertCircle,
   BarChart3
 } from "lucide-react";
 
@@ -75,7 +73,7 @@ export function StatsOverview() {
       animate="visible"
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
     >
-      {stats.map((stat, index) => {
+      {stats.map((stat) => {
         const Icon = stat.icon;
         const percentage = Math.round((stat.value / stat.total) * 100);
 

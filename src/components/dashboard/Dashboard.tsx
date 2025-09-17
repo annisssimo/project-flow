@@ -1,14 +1,25 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion } from "@/components/ui/simple-motion";
 import { Header } from "./Header";
 import { StatsOverview } from "./StatsOverview";
 import { RecentProjects } from "./RecentProjects";
 import { RecentTasks } from "./RecentTasks";
 import { TeamActivity } from "./TeamActivity";
 import { QuickActions } from "./QuickActions";
+import { CreateProjectModal } from "@/components/modals/CreateProjectModal";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
+// import { toast } from "react-hot-toast";
 
 export function Dashboard() {
+  const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] = useState(false);
+
+  const handleCreateProject = () => {
+    setIsCreateProjectModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
       <Header />
@@ -29,6 +40,13 @@ export function Dashboard() {
                 Here&apos;s what&apos;s happening with your projects today.
               </p>
             </div>
+            <Button 
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              onClick={handleCreateProject}
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              New Project
+            </Button>
           </div>
 
           <StatsOverview />
@@ -46,6 +64,11 @@ export function Dashboard() {
           </div>
         </motion.div>
       </main>
+
+      <CreateProjectModal
+        isOpen={isCreateProjectModalOpen}
+        onClose={() => setIsCreateProjectModalOpen(false)}
+      />
     </div>
   );
 }

@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion } from "@/components/ui/simple-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { CreateProjectModal } from "@/components/modals/CreateProjectModal";
 import { 
   Plus, 
   Users, 
@@ -11,6 +13,7 @@ import {
   Calendar,
   Settings
 } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 const quickActions = [
   {
@@ -64,48 +67,83 @@ const quickActions = [
 ];
 
 export function QuickActions() {
+  const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] = useState(false);
+
+  const handleActionClick = (actionTitle: string) => {
+    switch (actionTitle) {
+      case "New Project":
+        setIsCreateProjectModalOpen(true);
+        break;
+      case "Add Team Member":
+        toast.success("Team member invitation sent!");
+        break;
+      case "Create Task":
+        toast.info("Task creation form coming soon!");
+        break;
+      case "View Analytics":
+        toast.info("Opening analytics dashboard...");
+        break;
+      case "Schedule Meeting":
+        toast.success("Meeting scheduled for tomorrow at 2 PM!");
+        break;
+      case "Settings":
+        toast.info("Settings panel coming soon!");
+        break;
+      default:
+        toast.info(`${actionTitle} feature coming soon!`);
+    }
+  };
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-    >
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-2">
-          {quickActions.map((action, index) => {
-            const Icon = action.icon;
-            
-            return (
-              <motion.div
-                key={action.title}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <Button
-                  variant="ghost"
-                  className={`w-full justify-start h-auto p-3 ${action.hoverColor}`}
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {quickActions.map((action, index) => {
+              const Icon = action.icon;
+              
+              return (
+                <motion.div
+                  key={action.title}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <div className={`p-2 rounded-lg ${action.bgColor} mr-3`}>
-                    <Icon className={`h-4 w-4 ${action.color}`} />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-medium text-gray-900 dark:text-white">
-                      {action.title}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {action.description}
-                    </p>
-                  </div>
-                </Button>
-              </motion.div>
-            );
-          })}
-        </CardContent>
-      </Card>
-    </motion.div>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start h-auto p-3 ${action.hoverColor} hover:scale-105 transition-transform`}
+                    onClick={() => handleActionClick(action.title)}
+                  >
+                    <div className={`p-2 rounded-lg ${action.bgColor} mr-3`}>
+                      <Icon className={`h-4 w-4 ${action.color}`} />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {action.title}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {action.description}
+                      </p>
+                    </div>
+                  </Button>
+                </motion.div>
+              );
+            })}
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      <CreateProjectModal
+        isOpen={isCreateProjectModalOpen}
+        onClose={() => setIsCreateProjectModalOpen(false)}
+      />
+    </>
   );
 }
