@@ -5,13 +5,13 @@ import { motion } from "@/components/ui/simple-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CreateProjectModal } from "@/components/modals/CreateProjectModal";
-import { 
-  Plus, 
-  Users, 
-  FileText, 
+import {
+  Plus,
+  Users,
+  FileText,
   BarChart3,
   Calendar,
-  Settings
+  Settings,
 } from "lucide-react";
 import { toast } from "react-hot-toast";
 
@@ -67,7 +67,8 @@ const quickActions = [
 ];
 
 export function QuickActions() {
-  const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] = useState(false);
+  const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
+    useState(false);
 
   const handleActionClick = (actionTitle: string) => {
     switch (actionTitle) {
@@ -78,19 +79,19 @@ export function QuickActions() {
         toast.success("Team member invitation sent!");
         break;
       case "Create Task":
-        toast.info("Task creation form coming soon!");
+        toast("Task creation form coming soon!");
         break;
       case "View Analytics":
-        toast.info("Opening analytics dashboard...");
+        toast("Opening analytics dashboard...");
         break;
       case "Schedule Meeting":
         toast.success("Meeting scheduled for tomorrow at 2 PM!");
         break;
       case "Settings":
-        toast.info("Settings panel coming soon!");
+        toast("Settings panel coming soon!");
         break;
       default:
-        toast.info(`${actionTitle} feature coming soon!`);
+        toast(`${actionTitle} feature coming soon!`);
     }
   };
 
@@ -103,12 +104,14 @@ export function QuickActions() {
       >
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg font-semibold">Quick Actions</CardTitle>
+            <CardTitle className="text-lg font-semibold">
+              Quick Actions
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {quickActions.map((action, index) => {
               const Icon = action.icon;
-              
+
               return (
                 <motion.div
                   key={action.title}

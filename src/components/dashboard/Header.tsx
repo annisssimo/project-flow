@@ -21,7 +21,7 @@ export function Header() {
   };
 
   const handleSettingsClick = () => {
-    toast.info("Settings panel coming soon!");
+    toast("Settings panel coming soon!");
   };
 
   const handleSearch = (e: React.FormEvent) => {
